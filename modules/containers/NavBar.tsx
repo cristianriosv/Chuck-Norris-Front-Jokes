@@ -53,6 +53,9 @@ const NavBar = () => {
             className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6"
             color={'transparent'}
         >
+            <Typography variant="h3" className="text-center">
+                Chuck Jokes
+            </Typography>
             <ul className="mb-4 mt-2 flex gap-2 justify-center">
                 {APP_ROUTES.map((menuItem) => renderMenuItem(menuItem))}
             </ul>
