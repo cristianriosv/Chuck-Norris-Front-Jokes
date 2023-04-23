@@ -12,7 +12,7 @@ const JokesFavoriteView = () => {
     return (
         <>
             {/* Loading {loading.toString()} */}
-            <ul id="jokeList">
+            <ul id="jokeList" className="w-full max-w-md gap-2 space-y-4">
                 {favoritesData.map((joke) => (
                     <li key={joke.id}>
                         <ItemList

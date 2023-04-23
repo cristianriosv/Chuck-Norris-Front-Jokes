@@ -16,7 +16,7 @@ function JokesList() {
                 checked={isUpdating}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => setIsUpdating(event.target.checked)}
             />
-            <ul id="jokeList">
+            <ul id="jokeList" className="w-full max-w-md space-y-4">
                 {jokes.map((joke) => (
                     <li key={joke.id}>
                         <ItemList
