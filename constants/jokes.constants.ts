@@ -1,2 +1,3 @@
 export const MAXIMUM_RANDOM_JOKES = 10;
+export const MAXIMUM_FAVORITE_JOKES = 10;
 export const UPDATE_JOKES_SECONDS = 5000;
