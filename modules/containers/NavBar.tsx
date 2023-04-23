@@ -1,31 +1,66 @@
-import { Navbar as TWNavBar, Typography } from '@material-tailwind/react';
-import Link from 'next/link';
+import { Button, Navbar as TWNavBar, Typography } from '@material-tailwind/react';
+import { useRouter } from 'next/router';
 
-const NavBar = () => (
-    <TWNavBar className="sticky inset-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
-        <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
+type RouteProps = {
+    path: string;
+    label: string;
+}
+
+const APP_ROUTES: RouteProps[] = [
+    {
+        path: '/',
+        label: 'Home'
+    },
+    {
+        path: '/favorites',
+        label: 'Favorites'
+    }
+];
+
+const NavBar = () => {
+    const { pathname, push } = useRouter();
+    const isRouteActive = (route: string) => pathname === route;
+
+    const navigateToRoute = (route: string) => {
+        if (!isRouteActive(route)) {
+            push(route);
+        }
+    }
+
+    const renderMenuItem = (menuItem: RouteProps) => (
+        <Typography
+            as="li"
+            variant="small"
+            color="white"
+            className="p-1 font-normal cursor-pointer"
+            key={menuItem.path}
+        >
+            <Button
+                variant={isRouteActive(menuItem.path) ? 'filled' : 'outlined'}
+                onClick={() => navigateToRoute(menuItem.path)}
+                className="flex items-center gap-2"
+                color="red"
             >
-                <Link href="/">
-                Home
-                </Link>
+                {menuItem.label}
+            </Button>
+        </Typography>
+    );
+
+    return (
+        <TWNavBar
+            shadow
+            blurred
+            className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6"
+            color={'transparent'}
+        >
+            <Typography variant="h3" className="text-center">
+                Chuck Jokes
             </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <Link href="/favorites">
-                Favorites
-                </Link>
-            </Typography>
-        </ul>
-    </TWNavBar>
-);
+            <ul className="mb-4 mt-2 flex gap-2 justify-center">
+                {APP_ROUTES.map((menuItem) => renderMenuItem(menuItem))}
+            </ul>
+        </TWNavBar>
+    );
+}
 
 export default NavBar;

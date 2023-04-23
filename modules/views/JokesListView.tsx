@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import Loading from '@components/Loading';
 import ToggleButton from '@components/ToggleButton';
 import ItemList from '@containers/ItemList';
 import useFavorites from '@hooks/useFavorites';
@@ -10,13 +11,15 @@ function JokesList() {
 
     return (
         <>
-            Loading {loading.toString()}
-            <ToggleButton
-                label="Update jokes"
-                checked={isUpdating}
-                onChange={(event: ChangeEvent<HTMLInputElement>) => setIsUpdating(event.target.checked)}
-            />
-            <ul id="jokeList">
+            <div className="flex items-cetner justify-between w-full max-w-md mb-5">
+                <Loading isLoading={loading || isUpdating} />
+                <ToggleButton
+                    label="Keep updating jokes"
+                    checked={isUpdating}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => setIsUpdating(event.target.checked)}
+                />
+            </div>
+            <ul id="jokeList" className="w-full max-w-md space-y-4">
                 {jokes.map((joke) => (
                     <li key={joke.id}>
                         <ItemList
