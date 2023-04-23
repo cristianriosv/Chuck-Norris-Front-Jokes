@@ -16,3 +16,7 @@ type IconButtonProps = ButtonProps;
 type LoadingProps = {
     isLoading: boolean;
 }
+
+type LocalPopoverProps = Some<PopoverProps> & {
+    text: string;
+}
