@@ -15,7 +15,10 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@hooks/*": ["./modules/hooks/*"],
+      "@views/*": ["./modules/views/*"],
+      "@constants/*": ["./constants/*"]
     },
     "types": ["cypress"]
   },
