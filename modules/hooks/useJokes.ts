@@ -59,6 +59,10 @@ const useJokes = () => {
     useEffect(() => {
         initializeJokes();
         setUpdaterJokes();
+        return () => {
+            timeoutRef.current && window.clearTimeout(timeoutRef.current)
+            timeoutRef.current = null;
+        }
     }, [jokes, isUpdating]);
 
     return {
