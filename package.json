@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\""
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "unit-tests": "\"cypress run --component\""
   },
   "dependencies": {
+    "@material-tailwind/react": "^1.4.2",
     "@types/node": "18.15.13",
     "@types/react": "18.0.37",
     "@types/react-dom": "18.0.11",
