@@ -20,7 +20,8 @@
       "@views/*": ["./modules/views/*"],
       "@constants/*": ["./constants/*"],
       "@utils/*": ["./utils/*"],
-      "@components/*": ["./modules/components/*"]
+      "@components/*": ["./modules/components/*"],
+      "@containers/*": ["./modules/containers/*"]
     },
     "types": ["cypress"]
   },
