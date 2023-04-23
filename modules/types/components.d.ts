@@ -12,3 +12,7 @@ type ItemListProps = {
 }
 
 type IconButtonProps = ButtonProps;
+
+type LoadingProps = {
+    isLoading: boolean;
+}
