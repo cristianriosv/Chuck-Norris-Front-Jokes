@@ -1,4 +1,4 @@
-import JokesList from '@/modules/hooks/views/JokesListView';
+import JokesList from '@views/JokesListView';
 
 export default function Home() {
   return (
