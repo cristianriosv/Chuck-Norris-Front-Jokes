@@ -1,8 +1,9 @@
+import JokesList from '@/modules/hooks/views/JokesListView';
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Hello from Chuck Norris Jokes content
+      <JokesList/>
     </main>
   )
 }
