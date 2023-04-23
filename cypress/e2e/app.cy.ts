@@ -1,6 +1,6 @@
 describe('Navigation', () => {
-    it('should navigate to the main page and fetch one joke', () => {
+    it('should navigate to the main page and fetch 10 jokes', () => {
         cy.visit('/')
-        cy.get('ul').children()
+        cy.get('ul').children().should('have.length', 10)
     })
 })
