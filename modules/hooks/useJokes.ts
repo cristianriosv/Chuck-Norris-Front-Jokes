@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { RANDOM_JOKE_URL } from '@constants/api.constants';
-import { MAXIMUM_RANDOM_JOKES } from '@constants/jokes.constants';
+import { MAXIMUM_RANDOM_JOKES, UPDATE_JOKES_SECONDS } from '@constants/jokes.constants';
 import useRequest from '@hooks/useRequest';
 import { findOldestJoke } from '@utils/jokes.utils';
 
@@ -49,7 +49,7 @@ const useJokes = () => {
                 if (jokes.length >= MAXIMUM_RANDOM_JOKES) {
                     updateOldestJoke();
                 }
-            }, 5000);
+            }, UPDATE_JOKES_SECONDS);
         } else if (timeoutRef.current) {
             window.clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
