@@ -1,6 +1,6 @@
 describe('Navigation', () => {
-    it('should navigate to the main page', () => {
+    it('should navigate to the main page and fetch one joke', () => {
         cy.visit('/')
-        cy.get('main').contains('Hello from Chuck Norris Jokes content')
+        cy.get('ul').children()
     })
 })
