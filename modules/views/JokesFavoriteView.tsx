@@ -12,7 +12,7 @@ const JokesFavoriteView = () => {
     return (
         <>
             {/* Loading {loading.toString()} */}
-            <ul>
+            <ul id="jokeList">
                 {favoritesData.map((joke) => (
                     <li key={joke.id}>
                         <ItemList
