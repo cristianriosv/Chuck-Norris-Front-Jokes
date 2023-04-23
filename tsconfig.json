@@ -16,7 +16,9 @@
     "incremental": true,
     "paths": {
       "@/*": ["./*"],
-      "@hooks/*": ["./modules/hooks/*"]
+      "@hooks/*": ["./modules/hooks/*"],
+      "@views/*": ["./modules/views/*"],
+      "@constants/*": ["./constants/*"]
     },
     "types": ["cypress"]
   },
