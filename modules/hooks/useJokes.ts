@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RANDOM_JOKE_URL } from '@constants/api.constants';
 import { MAXIMUM_RANDOM_JOKES } from '@constants/jokes.constants';
 import useRequest from '@hooks/useRequest';
+import { findOldestJoke } from '@utils/jokes.utils';
 
 const useJokes = () => {
     const [loading, setLoading] = useState(false);
-    const [jokes, setJokes] = useState<any>([]);
+    const [jokes, setJokes] = useState<IJoke[]>([]);
+    const [isUpdating, setIsUpdating] = useState(false);
+    const timeoutRef = useRef<number | null>(null);
     const { getData } = useRequest();
     
     const getOneRandomJoke = () => getData(RANDOM_JOKE_URL);
@@ -18,17 +21,51 @@ const useJokes = () => {
         setJokes([...jokes, randomJoke]);
     }
 
-    useEffect(() => {
+    const replaceOldestJoke = (newJoke: IJoke) => {
+        const oldestJoke = findOldestJoke(jokes);
+        if (oldestJoke) {
+            setJokes([...jokes.filter((joke) => joke.id !== oldestJoke.id), newJoke]);
+        }
+    }
+
+    const updateOldestJoke = async () => {
+        setLoading(true);
+        const randomJoke = await getOneRandomJoke();
+        replaceOldestJoke(randomJoke);
+        setLoading(false);
+    }
+
+    const initializeJokes = () => {
         if (jokes.length < MAXIMUM_RANDOM_JOKES) {
             getRandomJokes();
-        } else {
+        } else if (loading) {
             setLoading(false);
         }
-    }, [jokes]);
+    }
+
+    const setUpdaterJokes = () => {
+        if (isUpdating) {
+            timeoutRef.current = window.setTimeout(() => {
+                if (jokes.length >= MAXIMUM_RANDOM_JOKES) {
+                    updateOldestJoke();
+                }
+            }, 5000);
+        } else if (timeoutRef.current) {
+            window.clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+    }
+
+    useEffect(() => {
+        initializeJokes();
+        setUpdaterJokes();
+    }, [jokes, isUpdating]);
 
     return {
         jokes,
-        loading
+        loading,
+        setIsUpdating,
+        isUpdating
     }
 }
 
