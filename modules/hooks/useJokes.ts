@@ -10,15 +10,15 @@ const useJokes = () => {
     const [isUpdating, setIsUpdating] = useState(false);
     const timeoutRef = useRef<number | null>(null);
     const { getData } = useRequest();
-    
+
     const getOneRandomJoke = () => getData(RANDOM_JOKE_URL);
 
     const getRandomJokes = async () => {
-        if (!loading) {
-            setLoading(true);
-        }
-        const randomJoke = await getOneRandomJoke();
-        setJokes([...jokes, randomJoke]);
+        setLoading(true);
+        const promises = Array.from(Array(MAXIMUM_RANDOM_JOKES).keys()).map(() => getData(RANDOM_JOKE_URL));
+        const results = await Promise.all(promises);
+        setLoading(false);
+        setJokes(results);
     }
 
     const replaceOldestJoke = (newJoke: IJoke) => {
@@ -38,8 +38,6 @@ const useJokes = () => {
     const initializeJokes = () => {
         if (jokes.length < MAXIMUM_RANDOM_JOKES) {
             getRandomJokes();
-        } else if (loading) {
-            setLoading(false);
         }
     }
 

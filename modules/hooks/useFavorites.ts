@@ -9,10 +9,20 @@ const useFavorites = () => {
     const { getData } = useRequest();
     const { findFavoritesAll, updateFavoritesAll } = useJokesDataBase();
     const [favorites, setFavorites] = useState<string[]>([]);
+    const [favoritesData, setFavoritesData] = useState<IJoke[]>([]);
 
     useEffect(() => {
         setFavorites(findFavoritesAll());
     }, []);
+
+    const updateFavoritesJokesData = async () => {
+        if (favoritesData.length < favorites.length) {
+            const favoritesDataResult = await getFavoritesData();
+            setFavoritesData(favoritesDataResult);
+        } else {
+            setFavoritesData(favoritesData.filter((joke) => favorites.includes(joke.id)));
+        }
+    }
 
     const updateFavorites = (data: string[]) => {
         setFavorites(data);
@@ -39,7 +49,9 @@ const useFavorites = () => {
         loading,
         favorites,
         handleToggleFavorite,
-        getFavoritesData
+        getFavoritesData,
+        favoritesData,
+        updateFavoritesJokesData
     }
 }
 
